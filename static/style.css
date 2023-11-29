@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+
+}
+#aiGreeting pre {
+    margin-left: -10px;
+    position: relative;
+
+}
+#copy-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100vh;
+    display: inline-block;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    height: 30px;
+    background-color: #0000000d;
+    padding: 0 10px;
+    transition: 0.3s;
+}
+#copy-button:hover{
+    background-color:rgba(255, 255, 255, 0.178);
+}
+code {
+    font-weight: 400;
+    font-size: .875rem;
+
+}
+#aiGreeting{
+        display: block;
+    padding-left: 10px;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+margin-top: 20px;
+color: white;
+font-size: 17px;
+text-align: left;
+line-height: 30px;
+}
+#tsparticles {
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  #tsparticles.canva{
+    background-color: #2D2E33;
+  }
+
+body{
+    position: relative;
+    top: 5vh;
+    font-family: Garamond;
+    background:#2D2E33 ;
+    display: flex;
+    flex-direction: column;
+
+}
+::-webkit-scrollbar {
+    display: none;
+  }
+h1
+{
+color: white;
+margin-bottom: 0;
+margin-top: 0;
+text-align: center;
+font-size: 19px;
+}
+h3
+{
+color: white;
+font-size: 18px;
+margin-top: 3px;
+text-align: center;
+}
+.mainapp{
+    border-radius: 1em;
+    margin: 0 auto;
+    width: 110vh;
+    height: 93vh;
+    background: #343541;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+#chatbox{
+
+    padding-top: 1em;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+
+    padding-bottom: 20px;
+    scroll-behavior: smooth;
+
+}
+.userReponce{
+    background-color: #343541;
+    margin-right: auto;
+    width: 100%;
+    gap: 10px;
+}
+.aiGreeting{
+
+    margin-left:5px;
+    width: fit-content;
+    max-width: 90%;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 30px;
+    display: flex;
+    background-color: #40414F;
+}
+
+#userInput {
+
+bottom: 0;
+border-radius: 50px;
+margin-left: auto;
+margin-right: 20px;
+width: 100vh;
+clear: both;
+background: #40414F;
+border: #adadad79 2px solid;
+
+margin: 0 auto;
+padding: 10px;
+display: flex;
+flex-direction: row;
+gap: 50px;
+transition: 0.5s;
+
+}
+#userInput:focus-within{
+    border-color: #7ABA7A;
+}
+
+#textInput:active ~ #buttonInput ,#textInput:focus ~ #buttonInput {
+    color: #7ABA7A ;
+}
+
+
+#buttonInput {
+    color: #adadad79;
+border: none;
+outline: none;
+cursor: pointer;
+background: transparent;
+padding-top: 1em;
+padding-right: 1em;
+width: 30px;
+height: 30px;
+transition: 1s;
+
+}
+#buttonInput:hover{
+    color: #7ABA7A;
+}
+
+
+.userTextcont {
+float: right;
+width: 100%;
+}
+.userText{
+    max-width: 70%;
+    margin-right: 5px;
+    float: right;
+
+    padding: 15px;
+
+    color: white;
+
+    font-size: 17px;
+    text-align: left;
+    line-height: 30px;
+    background-color: #b76eb8ab;
+    border-radius: 30px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 30px;
+  }
+
+.userText span {
+padding: 10px;
+
+}
+.botText {
+margin-top: 20px;
+color: white;
+font-size: 17px;
+text-align: left;
+line-height: 30px;
+}
+.botText span {
+
+padding: 10px;
+
+}
+
+.circular-container{
+	width: 36px;;
+	margin: 0 auto;
+}
+
+.circle{
+	border: 5px solid transparent;
+	border-radius: 50%;
+}
+
+.circular-loader1{
+	width: 36px;
+    height: 36px;
+    display: table;
+	padding: 10px;
+	border-top: 5px solid #028482;
+	border-bottom: 5px solid #028482;
+	animation: circular_loader1 linear 2s infinite;
+}
+
+.circular-loader2{
+	width: 10px;
+    height: 10px;
+	display: table-cell;
+	border-right: 5px solid #7ABA7A;
+	border-left: 5px solid #7ABA7A;
+	animation: circular_loader2 linear 2s infinite;
+}
+
+@keyframes circular_loader1 {
+    0% {
+    	transform: rotate(0deg);
+    }
+    50% {
+    	transform: rotate(-90deg);
+    }
+    100% {
+    	transform: rotate(360deg);
+    }
+}
+
+@keyframes circular_loader2 {
+    0% {
+    	transform: rotate(0deg);
+    }
+    50% {
+    	transform: rotate(-180deg);
+    }
+    100% {
+    	transform: rotate(360deg);
+    }
+}
+
+.profile {
+
+
+
+
+
+
+    margin-left: 10px;
+    margin-top:20px ;
+    margin-bottom: 20px;
+    height: 36px;
+    min-width: 36px;
+    width: 36px;
+    min-height: 36px;
+
+
+    border-radius: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+
+
+ #textInput{
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    background: transparent;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+
+}
+
+
+@media (max-width: 480px) {
+    #tsparticles{
+        display: none;
+    }
+    .mainapp{
+        border-radius: 0;
+        height: 100vh;
+        width: 100%;
+    }
+
+    p,.botText{
+        font-size: 14px;
+    }
+    #userInput{
+
+        width: fit-content;
+        min-width:    45vh        ;
+        left: 15vh;
+        margin-bottom: 0.1em;
+    }
+    body{
+        top: 0;
+    }
+
+
+
+}
+
+
+
+
+
+
+.MathJax,math{
+    background-color: #4b4c57;
+    color:   #f70000c0;
+    border-radius: 10px;
+    padding: 6px;
+    margin-left: 0;
+    width:6px;
+    font-size:  15px;
+}
+
+.MathJax_Preview{
+    display: none;
+}

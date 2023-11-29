@@ -1,0 +1,6 @@
+lexica-api
+markdown
+latex2mathml
+pygments
+Flask
+Gunicorn
