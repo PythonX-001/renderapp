@@ -75,4 +75,3 @@ def who_created_me(prompt):
 
         return response
 
-print(who_created_me("generate 3 python codes to expresse love to my girl using turtle , be creative and romantic"))
