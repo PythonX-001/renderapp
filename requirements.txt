@@ -1,4 +1,4 @@
-lexica-api
+lexica-api==1.4.7
 markdown
 latex2mathml
 pygments
