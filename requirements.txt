@@ -4,3 +4,4 @@ latex2mathml
 pygments
 Flask
 Gunicorn
+requests
