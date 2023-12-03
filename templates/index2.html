@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- first include tsParticles engine -->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/ir-black.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+    <script src="{{url_for('static', filename='particles.js')}}"></script>
+
+
+<link rel="icon" type="image/svg+xml" href="{{url_for('static', filename='icon.ico')}}">
+
+
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+
+
+<meta name="viewport" content="initial-scale=1,minimum-scale=1,width=device-width,interactive-widget=resizes-content">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js" type="text/javascript"></script>
+
+<title>Elliot V3.0</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
+
+<!-- then include any tsParticles plugin needed -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles/tsparticles.bundle.min.js"></script>
+
+<!-- then include jquery wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-particles"></script>
+
+   <script src="{{url_for('static', filename='js/script.js')}}"></script>
+<style>
+    #message {
+        border:2px solid #7ABA7A;
+        background-color:rgba(250, 251, 250, 0.32);
+        top:50%;
+        left:50%;
+        border-radius:25%;
+  display: none;
+  position:absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#message.show {
+  display: block;
+  opacity: 1;
+}
+
+</style>
+</head>
+<body>
+    <div id="tsparticles"></div>
+<div class="mainapp">
+
+<div id="chatbox">
+    <div class="aiGreeting">
+        <div class="profile">
+            <div class="circular-container">
+                <div class="circle circular-loader1">
+                <div class="circle circular-loader2">    </div>
+            </div>
+          </div></div>
+        <p class="botText"><span> Hi! I'm Elliot.</span></p>
+    </div>
+
+
+</div>
+
+
+<footer>
+        <div id="userInput">
+            <input id="textInput" type="text" autocomplete="off" name="msg" required="" placeholder="Ask Elliot...">
+            <button id="buttonInput" type="submit"><i class="fa-solid fa-paper-plane fa-xl" ></i></button>
+            <div class="circular-container " id="loading_spinner" style="display: none;"><div class="circle circular-loader1"><div class="circle circular-loader2"></div></div>
+        </div>
+
+</footer>
+</div>
+
+
+<script>
+    function autoScrollDown() {
+      const messagesContainer = document.querySelector('chatbox');
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+function getBotResponse() {
+
+var rawText = $("#textInput").val();
+var userHtml = '<div class="userTextcont" ><div class="userText" id="userText"><p dir="auto" ><span>' + rawText + '</span></p></div></div>';
+$("#textInput").val("");
+$("#chatbox").append(userHtml);
+$('#userText').stop ().animate ({
+  scrollTop: $('#chatbox')[0].scrollHeight
+});
+/*
+var myDiv = document.getElementById("userText");
+window.scrollTo(0, myDiv.innerHeight);
+
+document.getElementById('textInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+*/
+document.getElementById("textInput").disabled = true;
+document.getElementById("buttonInput").disabled = true;
+document.getElementById("loading_spinner").style.display = "inline";
+document.getElementById("buttonInput").style.display = "none";
+document.getElementById("textInput").style.display = "none";
+
+$.get("/get", { msg: rawText }).done(function(data) {
+
+var botHtml = "<div class='aiGreeting' id='aiGreeting'>"+data+"</div>";
+$("#chatbox").append(botHtml);
+$('#chatbox').stop ().animate ({
+  scrollTop: $('#chatbox')[0].scrollHeight
+});
+document.getElementById("textInput").disabled = false;
+document.getElementById("loading_spinner").style.display = "none";
+document.getElementById("buttonInput").disabled = false;
+document.getElementById("buttonInput").style.display = "inline";
+document.getElementById("textInput").style.display = "inline";
+
+  // then highlight each
+
+document.querySelectorAll('code').forEach(el => {
+  hljs.highlightElement(el);
+});
+/*
+var myDiv = document.getElementById("botText");
+window.scrollTo(0, myDiv.innerHeight);
+
+
+document.getElementById('botText').scrollIntoView({block: 'start', behavior: 'smooth'});
+*/
+
+});
+}
+$("#textInput").keypress(function(e) {
+if(e.which == 13) {
+getBotResponse();
+}
+});
+$("#buttonInput").click(function() {
+getBotResponse();
+})
+</script>
+<script>
+function copyto2(){
+    const copyButton = document.getElementById('#copy-button');
+    const codePreElement = document.querySelector('pre code');
+
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(codePreElement.textContent);
+      copyButton.textContent = 'Copied!';
+      setTimeout(() => {
+        copyButton.textContent = 'copy';
+      }, 1000);
+    });
+}
+
+
+
+
+function copytomain(){
+const codeBlocks = document.querySelectorAll('pre');
+
+for (const codeBlock of codeBlocks) {
+const copyButton = codeBlock.querySelector('#copy-button');
+
+
+const codeText = codeBlock.querySelector('code').textContent;
+navigator.clipboard.writeText(codeText);
+copyButton.textContent = 'Copied';
+setTimeout(() => {
+    copyButton.textContent = 'copy';
+}, 2000); // Change button text back to "Copy" after 2 seconds
+
+}
+
+}
+function copyto3(){
+const codeBlocks = document.querySelectorAll('pre');
+
+for (const codeBlock of codeBlocks) {
+const copyButton = codeBlock.querySelector('#copy-button');
+
+copyButton.addEventListener('click', (event) => {
+const codeText = event.target.parentElement.querySelector('code').textContent;
+navigator.clipboard.writeText(codeText);
+copyButton.textContent = 'Copied';
+setTimeout(() => {
+copyButton.textContent = 'copy';
+
+}, 2000); // Change button text back to "Copy" after 2 seconds
+});
+}
+
+}
+
+  </script>
+<div id="message"style="display:none">Code copied!</div>
+
+
+  <script>
+function copyto(){
+
+const preElements = document.querySelectorAll('pre');
+
+preElements.forEach(preElement => {
+const codeElement = preElement.querySelector('code');
+const copyButton = preElement.querySelector('#copy-button');
+
+copyButton.addEventListener('click', () => {
+const codeText = codeElement.textContent;
+navigator.clipboard.writeText(codeText);
+
+const messageElement = document.getElementById('message');
+messageElement.style.display = "block";
+
+setTimeout(() => {
+messageElement.style.display = "none";
+}, 2000);
+});
+});
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>// first, find all the div.code blocks
+document.querySelectorAll('code').forEach(el => {
+  // then highlight each
+  hljs.highlightElement(el);
+});
+</script>
+
+</body>

@@ -1,34 +1,33 @@
-
 from flask import Flask, render_template, request
-from brain import who_created_me
-import sys
+import requests
+from flask import jsonify
 
+#*import my own libs; ai/image
 
-
-import os
-
-
-
-
-
+from ImgGen import generate_image
 
 app = Flask(__name__)
 
-
 @app.route("/")
-def home():
+def index():
+
     return render_template("index.html")
+
+    # Download and save images
+
+
 
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    return str(who_created_me(userText))
+    image_urls = jsonify(generate_image(userText))
+ 
+    return image_urls
+
+
 
 
 if __name__ == "__main__":
-    app.run()
-
-
-
+    app.run(host="0.0.0.0", debug=True)
 
 

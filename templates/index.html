@@ -1,112 +1,422 @@
 <!DOCTYPE html>
-<html>
-<head>
-<!-- first include tsParticles engine -->
-<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/ir-black.css">-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="/static/scroll.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"  rel="stylesheet"  type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Sky</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+      .spinner-box {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+      }
+
+      /* X-ROTATING BOXES */
+
+      .configure-border-1 {
+        width: 33px;
+        height: 33px;
+        padding: 3px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        border: #fff 3px solid;
+        animation: configure-clockwise 3s ease-in-out 0s infinite alternate;
+      }
+
+      .configure-border-2 {
+        width: 33px;
+        height: 33px;
+        padding: 3px;
+        border: #ccc 3px solid;
+        left: -115px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        transform: rotate(45deg);
+        animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
+      }
+
+      .configure-core {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+      }
+
+      #userInput {
+        bottom: 0;
+        border-radius: 50px;
+        margin-left: auto;
+        margin-right: 20px;
+        width: 100vh;
+        min-width: -webkit-fill-available;
+        clear: both;
+        background: transparent;
+        border: #ffffff1a 2px solid;
+        margin: 0 auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        transition: 0.5s;
+      }
+      #userInput:focus-within {
+        border-color: #ffffffbd;
+      }
+
+      #textInput:active ~ #buttonInput,
+      #textInput:focus ~ #buttonInput {
+        color: #ffffffbd;
+      }
+      #textInput {
+        width: 100%;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px;
+        background: transparent;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+      }
+
+      #buttonInput {
+        color: #adadad79;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: transparent;
+        padding-top: 1em;
+        padding-right: 1em;
+        width: 30px;
+        height: 30px;
+        transition: 1s;
+      }
+      #buttonInput:hover {
+        color: #ffffffbd;
+      }
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-
-    <script src="{{url_for('static', filename='particles.js')}}"></script>
-
-
-<link rel="icon" type="image/svg+xml" href="{{url_for('static', filename='icon.ico')}}">
-
-
-<link rel="stylesheet" type="text/css" href="/static/style.css">
-
-
-<meta name="viewport" content="initial-scale=1,minimum-scale=1,width=device-width,interactive-widget=resizes-content">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js" type="text/javascript"></script>
-
-<title>Elliot V3.0</title>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
-
-<!-- then include any tsParticles plugin needed -->
-<script src="https://cdn.jsdelivr.net/npm/tsparticles/tsparticles.bundle.min.js"></script>
-
-<!-- then include jquery wrapper -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-particles"></script>
-
-   <script src="{{url_for('static', filename='js/script.js')}}"></script>
-<style>
-    #message {
-        border:2px solid #7ABA7A;
-        background-color:rgba(250, 251, 250, 0.32);
-        top:50%;
-        left:50%;
-        border-radius:25%;
-  display: none;
-  position:absolute;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+      .container{
+        position: relative;
+        top:5vh;
+        align-items: center;
+        justify-content: center;
+/* From https://css.glass */
+background: rgba(107, 107, 107, 0.123);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) ;
+backdrop-filter: blur(11px);
+-webkit-backdrop-filter: blur(11px);
+border: 1px solid rgba(255, 255, 255, 0.027);
+    border-radius: 1em;
+    margin: 0 auto;
+    width: 110vh;
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
-#message.show {
-  display: block;
-  opacity: 1;
+      .image-gallery {
+
+        background-color: transparent;
+
+        padding-top: 1em;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+
+    padding-bottom: 20px;
+    scroll-behavior: smooth;
+
+    }
+   
+
+      #HideImg {
+        padding: 0;
+        border: #fff solid 3px ;
+        border-radius: 0.4em;
+        width:auto;
+    height: auto;
+        object-fit:contain;
+      }
+      body {
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        background-color: #111927;
+
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 16px #fff, 0 0 32px #fff,
+          0 0 64px #fff;
+        animation: blink 6s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+
+
+      .twinkling {
+        z-index: -6;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+      }
+
+      .star:nth-child(1) {
+        animation: twinkle 9s infinite linear;
+      }
+
+      .star:nth-child(2) {
+        animation: twinkle 12s infinite linear;
+      }
+
+      /* Continue in this pattern until .star:nth-child(200) */
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          transform: translateY(0%);
+        }
+        50% {
+          transform: translateY(-100%);
+        }
+      }
+
+      /* KEYFRAMES */
+
+      @keyframes spin {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(359deg);
+        }
+      }
+
+      @keyframes spin3D {
+        from {
+          transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+        to {
+          transform: rotate3d(0deg);
+        }
+      }
+
+      @keyframes configure-clockwise {
+        0% {
+          transform: rotate(0);
+        }
+        25% {
+          transform: rotate(90deg);
+        }
+        50% {
+          transform: rotate(180deg);
+        }
+        75% {
+          transform: rotate(270deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes configure-xclockwise {
+        0% {
+          transform: rotate(45deg);
+        }
+        25% {
+          transform: rotate(-45deg);
+        }
+        50% {
+          transform: rotate(-135deg);
+        }
+        75% {
+          transform: rotate(-225deg);
+        }
+        100% {
+          transform: rotate(-315deg);
+        }
+      }
+
+      @keyframes pulse {
+        from {
+          opacity: 1;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0.25;
+          transform: scale(0.75);
+        }
+      }
+      @media (max-width: 480px) {
+
+        #HideImg{
+          max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #ccc; /* Add a 2px solid border with a light gray color */
+            border-radius: 8px; 
+        }
+    .container{
+      top: 0;
+        height: -webkit-fill-available;
+    border-radius: 0;
+    width: -webkit-fill-available;
+    }
+
+
+    #userInput{
+
+        width: fit-content;
+        min-width:    45vh        ;
+        left: 15vh;
+        margin-bottom: 0.1em;
+    }
+
+    body{
+      width: -webkit-fill-available;
+        top: 0;
+        height: 100vh;
+    margin: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    }
+
+
+
 }
 
-</style>
-</head>
-<body>
-    <div id="tsparticles"></div>
-<div class="mainapp">
-
-<div id="chatbox">
-    <div class="aiGreeting">
-        <div class="profile">
-            <div class="circular-container">
-                <div class="circle circular-loader1">
-                <div class="circle circular-loader2">    </div>
-            </div>
-          </div></div>
-        <p class="botText"><span> Hi! I'm Elliot.</span></p>
-    </div>
 
 
-</div>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image-gallery"id="image-gallery">
+        <!-- Add your image elements here -->
 
+        <!-- Add more image elements for more images -->
+      </div>
 
-<footer>
+      <div class="twinkling">
+        <div class="star" style="transform: translate(529.904px, 735.674px)">
+          <div class="star" style="transform: translate(642.386px, 1521.79px)"></div>
+          <div class="star" style="transform: translate(330.16px, 1059.94px)"></div>
+          <div class="star" style="transform: translate(254.996px, 845.308px)"></div>
+          <div class="star" style="transform: translate(114px, 1285.63px)"></div>
+          <div class="star" style="transform: translate(295.456px, 1129.19px)"></div>
+          <div class="star" style="transform: translate(740.771px, 515.534px)"></div>
+          <div class="star" style="transform: translate(639.615px, 1532.07px)"></div>
+          <div class="star" style="transform: translate(611.172px, 438.001px)"></div>
+          <div class="star" style="transform: translate(465.912px, 347.563px)"></div>
+          <div class="star" style="transform: translate(706.801px, 926.145px)"></div>
+          <div class="star" style="transform: translate(660.571px, 365.981px)"></div>
+          <div class="star" style="transform: translate(476.695px, 1208.14px)"></div>
+          <div class="star" style="transform: translate(66.1629px, 970.025px)"></div>
+          <div class="star" style="transform: translate(248.433px, 509.969px)"></div>
+          <div class="star" style="transform: translate(495.638px, 1516.08px)"></div>
+          <div class="star" style="transform: translate(367.189px, 1091.88px)"></div>
+          <div class="star" style="transform: translate(61.6846px, 1479.61px)"></div>
+          <div class="star" style="transform: translate(655.247px, 1043.23px)"></div>
+        </div>
+      </div>
+      <footer>
+
         <div id="userInput">
-            <input id="textInput" type="text" autocomplete="off" name="msg" required="" placeholder="Ask Elliot...">
-            <button id="buttonInput" type="submit"><i class="fa-solid fa-paper-plane fa-xl" ></i></button>
-            <div class="circular-container " id="loading_spinner" style="display: none;"><div class="circle circular-loader1"><div class="circle circular-loader2"></div></div>
+        <div class="spinner-box"id="spinner-box" style="display: none">
+            <div class="configure-border-1">
+                <div class="configure-core"></div>
+            </div>
+            <div class="configure-border-2">
+            <div class="configure-core"></div>
+            </div>
+        </div>
+        <input  id="textInput"  type="text"  autocomplete="off"  name="msg"  required=""  placeholder="Ask Elliot..."  />
+        <button id="buttonInput" type="submit">
+            <i class="fa-solid fa-paper-plane fa-xl"></i>
+        </button>
+
         </div>
 
 </footer>
-</div>
+    </div>
 
+
+
+    <script>
+      function moveStars() {
+        const stars = document.querySelectorAll(".star");
+        stars.forEach((star) => {
+          const randomX = Math.random() * window.innerWidth;
+          const randomY = Math.random() * window.innerHeight;
+          star.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        });
+      }
+
+      moveStars();
+      setInterval(moveStars, 5000); // Repeat every 5 seconds
+    </script>
+    <script>
+      function hideImg() {
+        document.getElementById("HideImg").style.display = "none";
+      }
+    </script>
 
 <script>
-    function autoScrollDown() {
-      const messagesContainer = document.querySelector('chatbox');
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+function autoScrollDown() {
+const messagesContainer = document.querySelector("chatbox");
+messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
 
 function getBotResponse() {
-
 var rawText = $("#textInput").val();
-var userHtml = '<div class="userTextcont" ><div class="userText" id="userText"><p dir="auto" ><span>' + rawText + '</span></p></div></div>';
 $("#textInput").val("");
-$("#chatbox").append(userHtml);
-$('#userText').stop ().animate ({
-  scrollTop: $('#userText')[0].scrollHeight
-});
+
+
 /*
 var myDiv = document.getElementById("userText");
 window.scrollTo(0, myDiv.innerHeight);
@@ -115,132 +425,53 @@ document.getElementById('textInput').scrollIntoView({block: 'start', behavior: '
 */
 document.getElementById("textInput").disabled = true;
 document.getElementById("buttonInput").disabled = true;
-document.getElementById("loading_spinner").style.display = "inline";
+document.getElementById("spinner-box").style.display = "block";
 document.getElementById("buttonInput").style.display = "none";
 document.getElementById("textInput").style.display = "none";
 
-$.get("/get", { msg: rawText }).done(function(data) {
+$.get("/get", { msg: rawText }).done(function (data) {
 
-var botHtml = "<div class='aiGreeting' id='aiGreeting'>"+data+"</div>";
-$("#chatbox").append(botHtml);
-$('#chatbox').stop ().animate ({
-  scrollTop: $('#chatbox')[0].scrollHeight
+console.log(data);
+
+const targetDiv = $(".image-gallery");
+
+$.each(data, function(index, imageUrl) {
+  const imgElement = $('<img>', { id: 'HideImg', src: imageUrl, alt: 'Image',width:"auto", height:"auto" });
+  targetDiv.append(imgElement);
+  $('.image-gallery').stop().animate({
+  scrollTop: $('.image-gallery')[0].scrollHeight
+}, 600);
 });
-document.getElementById("textInput").disabled = false;
-document.getElementById("loading_spinner").style.display = "none";
-document.getElementById("buttonInput").disabled = false;
-document.getElementById("buttonInput").style.display = "inline";
-document.getElementById("textInput").style.display = "inline";
-document.querySelectorAll('code').forEach(el => {
-  // then highlight each
-  hljs.highlightElement(el);
-});
-/*
+
+
+    document.getElementById("textInput").disabled = false;
+    document.getElementById("spinner-box").style.display = "none";
+    document.getElementById("buttonInput").disabled = false;
+    document.getElementById("buttonInput").style.display = "inline";
+    document.getElementById("textInput").style.display = "inline";
+
+    // then highlight each
+
+    document.querySelectorAll("code").forEach((el) => {
+    hljs.highlightElement(el);
+    });
+    /*
 var myDiv = document.getElementById("botText");
 window.scrollTo(0, myDiv.innerHeight);
 
 
 document.getElementById('botText').scrollIntoView({block: 'start', behavior: 'smooth'});
 */
-
 });
 }
-$("#textInput").keypress(function(e) {
-if(e.which == 13) {
+$("#textInput").keypress(function (e) {
+if (e.which == 13) {
+    getBotResponse();
+}
+});
+$("#buttonInput").click(function () {
 getBotResponse();
-}
-});
-$("#buttonInput").click(function() {
-getBotResponse();
-})
-</script>
-<script>
-function copyto2(){
-    const copyButton = document.getElementById('#copy-button');
-    const codePreElement = document.querySelector('pre code');
-
-    copyButton.addEventListener('click', () => {
-      navigator.clipboard.writeText(codePreElement.textContent);
-      copyButton.textContent = 'Copied!';
-      setTimeout(() => {
-        copyButton.textContent = 'copy';
-      }, 1000);
-    });
-}
-
-
-
-
-function copytomain(){
-const codeBlocks = document.querySelectorAll('pre');
-
-for (const codeBlock of codeBlocks) {
-const copyButton = codeBlock.querySelector('#copy-button');
-
-
-const codeText = codeBlock.querySelector('code').textContent;
-navigator.clipboard.writeText(codeText);
-copyButton.textContent = 'Copied';
-setTimeout(() => {
-    copyButton.textContent = 'copy';
-}, 2000); // Change button text back to "Copy" after 2 seconds
-
-}
-
-}
-function copyto3(){
-const codeBlocks = document.querySelectorAll('pre');
-
-for (const codeBlock of codeBlocks) {
-const copyButton = codeBlock.querySelector('#copy-button');
-
-copyButton.addEventListener('click', (event) => {
-const codeText = event.target.parentElement.querySelector('code').textContent;
-navigator.clipboard.writeText(codeText);
-copyButton.textContent = 'Copied';
-setTimeout(() => {
-copyButton.textContent = 'copy';
-
-}, 2000); // Change button text back to "Copy" after 2 seconds
-});
-}
-
-}
-
-  </script>
-<div id="message"style="display:none">Code copied!</div>
-
-
-  <script>
-function copyto(){
-
-const preElements = document.querySelectorAll('pre');
-
-preElements.forEach(preElement => {
-const codeElement = preElement.querySelector('code');
-const copyButton = preElement.querySelector('#copy-button');
-
-copyButton.addEventListener('click', () => {
-const codeText = codeElement.textContent;
-navigator.clipboard.writeText(codeText);
-
-const messageElement = document.getElementById('message');
-messageElement.style.display = "block";
-
-setTimeout(() => {
-messageElement.style.display = "none";
-}, 2000);
-});
-});
-}
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-
-<script>// first, find all the div.code blocks
-document.querySelectorAll('code').forEach(el => {
-  // then highlight each
-  hljs.highlightElement(el);
 });
 </script>
-
-</body>
+  </body>
+</html>
