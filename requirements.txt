@@ -5,3 +5,4 @@ pygments
 Flask
 Gunicorn
 requests
+bardapi
