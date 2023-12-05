@@ -30,7 +30,7 @@ def febo():
     return render_template("febo.html")
 
 @app.route("/Elliot")
-def febo():
+def elliot():
     return render_template("index.html")
 
 @app.route("/get")
