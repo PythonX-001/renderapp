@@ -633,7 +633,7 @@ backdrop-filter: blur(11px);
     body{
       width: -webkit-fill-available;
         top: 0;
-        height: 100vh;
+        height: 100svh;
     margin: 0;
     overflow-y: hidden;
     overflow-x: hidden;
