@@ -44,7 +44,7 @@ def detect_code_blocks(text):
         text = text.replace(block, f"<pre><code>{block}</code></pre>")
     return text
 
-import re
+
 
 def detect_code_blocks_first(text):
     code_blocks = re.findall(r"^`(.*?)`", text, flags=re.DOTALL | re.MULTILINE)

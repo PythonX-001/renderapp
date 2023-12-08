@@ -146,6 +146,7 @@ border: 1px solid rgba(255, 255, 255, 0.027);
 }
 
       .image-gallery {
+        justify-content: center;
 
         background-color: transparent;
 
@@ -168,11 +169,12 @@ border: 1px solid rgba(255, 255, 255, 0.027);
    
 
       #HideImg {
+        margin: 0 0.5em 0;
         padding: 0;
-        border: #fff solid 3px ;
+        border: rgba(255, 255, 255, 0.466) solid 3px ;
         border-radius: 0.4em;
-        width:auto;
-    height: auto;
+        width:30vh;
+    height: 30vh;
         object-fit:contain;
       }
       body {
@@ -182,7 +184,7 @@ border: 1px solid rgba(255, 255, 255, 0.027);
         background-color: #111927;
         display: flex;
         flex: auto;
-        height: 100svh;
+        height: 100vh;
         margin: 0;
         overflow: hidden;
       }
@@ -307,8 +309,8 @@ border: 1px solid rgba(255, 255, 255, 0.027);
       @media (max-width: 480px) {
 
         #HideImg{
-          max-width: 100%;
-            height: auto;
+          max-width: 30svh;
+            height: 30svh;
             display: block;
             margin: 0 auto;
             border: 2px solid #ccc; /* Add a 2px solid border with a light gray color */
@@ -777,7 +779,7 @@ console.log(data);
 const targetDiv = $(".image-gallery");
 
 $.each(data, function(index, imageUrl) {
-  const imgElement = $('<img>', { id: 'HideImg', src: imageUrl, alt: 'Image',width:"auto", height:"auto" });
+  const imgElement = $('<img>', { id: 'HideImg', src: imageUrl, alt: 'Image' });
   targetDiv.append(imgElement);
   $('.image-gallery').stop().animate({
   scrollTop: $('.image-gallery')[0].scrollHeight
